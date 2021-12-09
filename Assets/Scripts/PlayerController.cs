@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
@@ -16,23 +17,19 @@ public class PlayerController : MonoBehaviour
 
     public GameObject shot;
     public Transform shotSpawn;
-    private float nextFire;
-    public float fireRate;
+   
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        InvokeRepeating("fireBullet",0.5f,0.3f);
+   
     }
 
-    private void Update()
+
+    void fireBullet()
     {
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-           
-                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-                
-        }
+        Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
     }
 
 
